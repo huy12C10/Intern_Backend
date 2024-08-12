@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { PayablesModule } from './payables/payables.module';
 import { PurchaseModule } from './purchase-invoice/purchase-invoice.module';
+import { PurchaseOrderModule } from './purchase-order/purchase-order.module';
+
 
 @Module({
   imports: [
@@ -13,7 +15,9 @@ import { PurchaseModule } from './purchase-invoice/purchase-invoice.module';
     MongooseModule.forRoot(process.env.DB_URL),
     PayablesModule,
     PurchaseModule,
-    AuthModule
+    AuthModule,
+    PurchaseOrderModule,
+    
   ],
   controllers: [AppController],
   providers: [AppService],
