@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import * as moment from 'moment';
+import { Document } from 'mongoose';
 
 export type PurchaseDocument = PurchaseInvoice & Document;
 
@@ -11,11 +12,11 @@ export enum StatusPurchaseInvoice {
 
 @Schema()
 export class PurchaseInvoice {
-  @Prop({ required: true, type: Types.ObjectId })
-  supplierId: Types.ObjectId; 
+  @Prop({ required: true })
+  supplierId: string; 
 
-  @Prop({ required: true, type: Object })
-  purchaseProducts: object; 
+  @Prop({ required: true })
+  purchaseProducts: string; 
 
   @Prop({ required: true, enum: StatusPurchaseInvoice })
   statusPurchaseInvoice: StatusPurchaseInvoice;
@@ -32,19 +33,19 @@ export class PurchaseInvoice {
   @Prop({ required: true })
   sumBill: number;
 
-  @Prop({ required: true, type: Types.ObjectId })
-  supplier: Types.ObjectId; 
+  @Prop({ required: true })
+  supplier: string; 
 }
 
 export const PurchaseInvoiceSchema = SchemaFactory.createForClass(PurchaseInvoice);
 
-// PurchaseInvoiceSchema.set('toJSON', {
-//   virtuals: true,
-//   versionKey: false,
-//   transform: (doc, ret) => {
-//     ret.id = ret._id;
-//     delete ret._id;
-//     ret.dueDate = moment(ret.dueDate).format('YYYY-MM-DD');
-//     ret.createdAt = moment(ret.createdAt).format('YYYY-MM-DD');
-//   },
-// });
+PurchaseInvoiceSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: (doc, ret) => {
+    ret.id = ret._id;
+    delete ret._id;
+    ret.dueDate = moment(ret.dueDate).format('YYYY-MM-DD');
+    ret.createdAt = moment(ret.createdAt).format('YYYY-MM-DD');
+  },
+});

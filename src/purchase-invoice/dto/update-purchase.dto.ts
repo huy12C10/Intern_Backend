@@ -19,12 +19,16 @@ export class UpdatePurchaseDto {
   readonly adminId: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  readonly sumBill: number; 
+  @IsDateString()
+  readonly dueDate: string; 
 
   @IsNotEmpty()
   @IsDateString()
   readonly createdAt: string; 
+
+  @IsNotEmpty()
+  @IsNumber()
+  readonly sumBill: number; 
 
   @IsNotEmpty()
   @IsString()

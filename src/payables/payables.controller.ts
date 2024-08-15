@@ -1,17 +1,18 @@
 // payables.controller.ts
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreatePayableDto } from './dto/create-payables.dto';
 import { UpdatePayableDto } from './dto/update-payables.dto';
 import { PayablesService } from './payables.service';
 import { Payable } from './schemas/payables.schema';
 
+
 @Controller('payables')
 export class PayablesController {
   constructor(private readonly payablesService: PayablesService) {}
 
-  @Get()
-  async getAllPayables(@Query() query: any): Promise<Payable[]> {
-    return this.payablesService.findAll(query);
+ @Get()
+  async getAllPayable(): Promise<Payable[]> {
+    return this.payablesService.findAll();
   }
 
   @Post()

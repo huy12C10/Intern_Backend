@@ -45,69 +45,70 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.PurchaseOrderController = void 0;
+exports.PurchaseInvoiceController = void 0;
 var common_1 = require("@nestjs/common");
-var PurchaseOrderController = /** @class */ (function () {
-    function PurchaseOrderController(purchaseOrderService) {
-        this.purchaseOrderService = purchaseOrderService;
+var PurchaseInvoiceController = /** @class */ (function () {
+    function PurchaseInvoiceController(purchaseService) {
+        this.purchaseService = purchaseService;
     }
-    PurchaseOrderController.prototype.create = function (createPurchaseOrderDto) {
-        return __awaiter(this, void 0, void 0, function () {
+    PurchaseInvoiceController.prototype.getAllDebts = function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.purchaseOrderService.create(createPurchaseOrderDto)];
+                return [2 /*return*/, this.purchaseService.findAll()];
             });
         });
     };
-    PurchaseOrderController.prototype.findAll = function () {
-        return __awaiter(this, void 0, void 0, function () {
+    PurchaseInvoiceController.prototype.createPurchase = function (createPurchaseDto) {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.purchaseOrderService.findAll()];
+                return [2 /*return*/, this.purchaseService.create(createPurchaseDto)];
             });
         });
     };
-    PurchaseOrderController.prototype.findOne = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
+    PurchaseInvoiceController.prototype.getPurchase = function (id) {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.purchaseOrderService.findOne(id)];
+                return [2 /*return*/, this.purchaseService.findOne(id)];
             });
         });
     };
-    PurchaseOrderController.prototype.update = function (id, updatePurchaseOrderDto) {
-        return __awaiter(this, void 0, void 0, function () {
+    PurchaseInvoiceController.prototype.updatePurchase = function (id, updatePurchaseDto) {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.purchaseOrderService.update(id, updatePurchaseOrderDto)];
+                return [2 /*return*/, this.purchaseService.updateById(id, updatePurchaseDto)];
             });
         });
     };
-    PurchaseOrderController.prototype.remove = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
+    PurchaseInvoiceController.prototype.deletePurchase = function (id) {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.purchaseOrderService.remove(id)];
+                return [2 /*return*/, this.purchaseService.deleteById(id)];
             });
         });
     };
+    __decorate([
+        common_1.Get()
+    ], PurchaseInvoiceController.prototype, "getAllDebts");
     __decorate([
         common_1.Post(),
         __param(0, common_1.Body())
-    ], PurchaseOrderController.prototype, "create");
-    __decorate([
-        common_1.Get()
-    ], PurchaseOrderController.prototype, "findAll");
+    ], PurchaseInvoiceController.prototype, "createPurchase");
     __decorate([
         common_1.Get(':id'),
         __param(0, common_1.Param('id'))
-    ], PurchaseOrderController.prototype, "findOne");
+    ], PurchaseInvoiceController.prototype, "getPurchase");
     __decorate([
         common_1.Put(':id'),
-        __param(0, common_1.Param('id')), __param(1, common_1.Body())
-    ], PurchaseOrderController.prototype, "update");
+        __param(0, common_1.Param('id')),
+        __param(1, common_1.Body())
+    ], PurchaseInvoiceController.prototype, "updatePurchase");
     __decorate([
         common_1.Delete(':id'),
         __param(0, common_1.Param('id'))
-    ], PurchaseOrderController.prototype, "remove");
-    PurchaseOrderController = __decorate([
-        common_1.Controller('purchase-orders')
-    ], PurchaseOrderController);
-    return PurchaseOrderController;
+    ], PurchaseInvoiceController.prototype, "deletePurchase");
+    PurchaseInvoiceController = __decorate([
+        common_1.Controller('purchase-invoice')
+    ], PurchaseInvoiceController);
+    return PurchaseInvoiceController;
 }());
-exports.PurchaseOrderController = PurchaseOrderController;
+exports.PurchaseInvoiceController = PurchaseInvoiceController;

@@ -20,7 +20,7 @@ export class Debt extends Document {
   @Prop({ type: MongooseSchema.Types.Date, default: Date.now  })
   createdAt: Date; 
 
-@Prop({ required: true, enum: StatusDebt })
+  @Prop({ required: true, enum: StatusDebt })
    statusDebt: StatusDebt;
 
   @Prop({ type: MongooseSchema.Types.String, required: true })

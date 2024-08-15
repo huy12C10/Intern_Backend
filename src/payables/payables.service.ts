@@ -30,16 +30,8 @@ export class PayablesService {
     return newPayable.save();
   }
 
-  async findAll(query: any): Promise<Payable[]> {
-    const keyword = query.keyword ? {
-      status: {
-        $regex: query.keyword,
-        $options: 'i'
-      }
-    } : {};
-
-    const payablesQuery = this.payableModel.find({ ...keyword });
-    return payablesQuery.exec();
+  async findAll(): Promise<Payable[]> {
+    return this.payableModel.find().exec();
   }
 
   async findOne(id: string): Promise<Payable> {

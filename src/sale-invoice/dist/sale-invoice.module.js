@@ -6,26 +6,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.PurchaseOrderModule = void 0;
+exports.SaleInvoiceModule = void 0;
 var common_1 = require("@nestjs/common");
 var mongoose_1 = require("@nestjs/mongoose");
-var purchase_order_controller_1 = require("./purchase-order.controller");
-var purchase_order_service_1 = require("./purchase-order.service");
-var purchase_order_schema_1 = require("./schema/purchase-order.schema");
-var PurchaseOrderModule = /** @class */ (function () {
-    function PurchaseOrderModule() {
+var sale_invoice_controller_1 = require("./sale-invoice.controller");
+var sale_invoice_service_1 = require("./sale-invoice.service");
+var sale_invoice_schema_1 = require("./schemas/sale-invoice.schema");
+var SaleInvoiceModule = /** @class */ (function () {
+    function SaleInvoiceModule() {
     }
-    PurchaseOrderModule = __decorate([
+    SaleInvoiceModule = __decorate([
         common_1.Module({
             imports: [
                 mongoose_1.MongooseModule.forFeature([
-                    { name: purchase_order_schema_1.PurchaseOrder.name, schema: purchase_order_schema_1.PurchaseOrderSchema },
+                    { name: sale_invoice_schema_1.SaleInvoice.name, schema: sale_invoice_schema_1.SalesInvoiceSchema },
                 ]),
             ],
-            providers: [purchase_order_service_1.PurchaseOrderService],
-            controllers: [purchase_order_controller_1.PurchaseOrderController]
+            providers: [sale_invoice_service_1.SaleInvoiceService],
+            controllers: [sale_invoice_controller_1.SaleInvoiceController]
         })
-    ], PurchaseOrderModule);
-    return PurchaseOrderModule;
+    ], SaleInvoiceModule);
+    return SaleInvoiceModule;
 }());
-exports.PurchaseOrderModule = PurchaseOrderModule;
+exports.SaleInvoiceModule = SaleInvoiceModule;

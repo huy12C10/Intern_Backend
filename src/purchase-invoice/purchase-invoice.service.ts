@@ -9,54 +9,35 @@ import { PurchaseDocument, PurchaseInvoice } from './schemas/purchase-invoice.sc
 export class PurchaseService {
   constructor(@InjectModel(PurchaseInvoice.name) private readonly purchaseModel: Model<PurchaseDocument>) {}
 
-  async create(createPurchaseDto: CreatePurchaseDto): Promise<PurchaseInvoice> {
-    const newPayable = new this.purchaseModel(createPurchaseDto);
-    return newPayable.save();
+  async findAll(): Promise<PurchaseInvoice[]> {
+    return this.purchaseModel.find().exec();
   }
 
-  async findAll(query: any): Promise<PurchaseInvoice[]> {
-    const keyword = query.keyword ? {
-      status: {
-        $regex: query.keyword,
-        $options: 'i'
-      }
-    } : {};
-
-    const purchaseQuery = this.purchaseModel.find({ ...keyword });
-    return purchaseQuery.exec();
+  async create(createPurchaseDto: CreatePurchaseDto): Promise<PurchaseInvoice> {
+    const newPurchase = new this.purchaseModel(createPurchaseDto);
+    return newPurchase.save();
   }
 
   async findOne(id: string): Promise<PurchaseInvoice> {
     if (!isValidObjectId(id)) {
-      throw new BadRequestException('Invalid ID');
+      throw new BadRequestException('Invalid ID format');
     }
     return this.purchaseModel.findById(id).exec();
   }
 
   async updateById(id: string, updatePurchaseDto: UpdatePurchaseDto): Promise<PurchaseInvoice> {
-    const updatedPurchase = await this.purchaseModel.findByIdAndUpdate(
-      id,
-      updatePurchaseDto,
-      {
-        new: true,
-        runValidators: true
-      }
-    ).exec();
-
-    if (!updatedPurchase) {
-      throw new BadRequestException('Payable not found');
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException('Invalid ID format');
     }
-
-    return updatedPurchase;
+    return this.purchaseModel.findByIdAndUpdate(id, updatePurchaseDto, { new: true }).exec();
   }
 
   async deleteById(id: string): Promise<PurchaseInvoice> {
-    const deletedPurchase = await this.purchaseModel.findByIdAndDelete(id).exec();
-
-    if (!deletedPurchase) {
-      throw new BadRequestException('Payable not found');
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException('Invalid ID format');
     }
-
-    return deletedPurchase;
+    return this.purchaseModel.findByIdAndDelete(id).exec();
   }
+
+ 
 }

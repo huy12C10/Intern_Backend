@@ -45,92 +45,71 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.DebtController = void 0;
+exports.PayablesController = void 0;
+// payables.controller.ts
 var common_1 = require("@nestjs/common");
-var DebtController = /** @class */ (function () {
-    function DebtController(debtService) {
-        this.debtService = debtService;
+var PayablesController = /** @class */ (function () {
+    function PayablesController(payablesService) {
+        this.payablesService = payablesService;
     }
-    DebtController.prototype.filterDebts = function (query) {
+    PayablesController.prototype.getAllPayable = function () {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.filterDebts(query)];
+                return [2 /*return*/, this.payablesService.findAll()];
             });
         });
     };
-    DebtController.prototype.searchDebts = function (keyword) {
+    PayablesController.prototype.createPayable = function (createPayableDto) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.searchDebts(keyword)];
+                return [2 /*return*/, this.payablesService.create(createPayableDto)];
             });
         });
     };
-    DebtController.prototype.createDebt = function (createDebtDto) {
+    PayablesController.prototype.getPayable = function (id) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.create(createDebtDto)];
+                return [2 /*return*/, this.payablesService.findOne(id)];
             });
         });
     };
-    DebtController.prototype.getDebt = function (id) {
+    PayablesController.prototype.updatePayable = function (id, updatePayableDto) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.findOne(id)];
+                return [2 /*return*/, this.payablesService.updateById(id, updatePayableDto)];
             });
         });
     };
-    DebtController.prototype.updateDebt = function (id, updateDebtDto) {
+    PayablesController.prototype.deletePayable = function (id) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.updateById(id, updateDebtDto)];
-            });
-        });
-    };
-    DebtController.prototype.deleteDebt = function (id) {
-        return __awaiter(this, void 0, Promise, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.deleteById(id)];
-            });
-        });
-    };
-    DebtController.prototype.getAllDebts = function () {
-        return __awaiter(this, void 0, Promise, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.findAll()];
+                return [2 /*return*/, this.payablesService.deleteById(id)];
             });
         });
     };
     __decorate([
-        common_1.Get('filter'),
-        __param(0, common_1.Query())
-    ], DebtController.prototype, "filterDebts");
-    __decorate([
-        common_1.Get('search'),
-        __param(0, common_1.Query('keyword'))
-    ], DebtController.prototype, "searchDebts");
+        common_1.Get()
+    ], PayablesController.prototype, "getAllPayable");
     __decorate([
         common_1.Post(),
         __param(0, common_1.Body())
-    ], DebtController.prototype, "createDebt");
+    ], PayablesController.prototype, "createPayable");
     __decorate([
         common_1.Get(':id'),
         __param(0, common_1.Param('id'))
-    ], DebtController.prototype, "getDebt");
+    ], PayablesController.prototype, "getPayable");
     __decorate([
         common_1.Put(':id'),
         __param(0, common_1.Param('id')),
         __param(1, common_1.Body())
-    ], DebtController.prototype, "updateDebt");
+    ], PayablesController.prototype, "updatePayable");
     __decorate([
         common_1.Delete(':id'),
         __param(0, common_1.Param('id'))
-    ], DebtController.prototype, "deleteDebt");
-    __decorate([
-        common_1.Get()
-    ], DebtController.prototype, "getAllDebts");
-    DebtController = __decorate([
-        common_1.Controller('debts')
-    ], DebtController);
-    return DebtController;
+    ], PayablesController.prototype, "deletePayable");
+    PayablesController = __decorate([
+        common_1.Controller('payables')
+    ], PayablesController);
+    return PayablesController;
 }());
-exports.DebtController = DebtController;
+exports.PayablesController = PayablesController;

@@ -45,55 +45,87 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.PurchaseOrderService = void 0;
+exports.SaleInvoiceController = void 0;
 var common_1 = require("@nestjs/common");
-var mongoose_1 = require("@nestjs/mongoose");
-var purchase_order_schema_1 = require("./schema/purchase-order.schema");
-var PurchaseOrderService = /** @class */ (function () {
-    function PurchaseOrderService(purchaseOrderModel) {
-        this.purchaseOrderModel = purchaseOrderModel;
+var SaleInvoiceController = /** @class */ (function () {
+    function SaleInvoiceController(saleInvoiceService) {
+        this.saleInvoiceService = saleInvoiceService;
     }
-    PurchaseOrderService.prototype.create = function (createPurchaseOrderDto) {
-        return __awaiter(this, void 0, Promise, function () {
-            var createdOrder;
+    SaleInvoiceController.prototype.create = function (createSaleDto) {
+        return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                createdOrder = new this.purchaseOrderModel(createPurchaseOrderDto);
-                return [2 /*return*/, createdOrder.save()];
+                return [2 /*return*/, this.saleInvoiceService.create(createSaleDto)];
             });
         });
     };
-    PurchaseOrderService.prototype.findOne = function (id) {
-        return __awaiter(this, void 0, Promise, function () {
+    SaleInvoiceController.prototype.findAll = function () {
+        return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.purchaseOrderModel.findById(id).exec()];
+                return [2 /*return*/, this.saleInvoiceService.findAll()];
             });
         });
     };
-    PurchaseOrderService.prototype.update = function (id, updatePurchaseOrderDto) {
-        return __awaiter(this, void 0, Promise, function () {
+    //   @Get(':id')
+    //   async findOne(@Param('id') id: string) {
+    //     return this.saleInvoiceService.findOne(id);
+    //   }
+    SaleInvoiceController.prototype.update = function (id, updateSaleDto) {
+        return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.purchaseOrderModel.findByIdAndUpdate(id, updatePurchaseOrderDto, { "new": true }).exec()];
+                return [2 /*return*/, this.saleInvoiceService.updateById(id, updateSaleDto)];
             });
         });
     };
-    PurchaseOrderService.prototype.remove = function (id) {
-        return __awaiter(this, void 0, Promise, function () {
+    SaleInvoiceController.prototype.remove = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.purchaseOrderModel.findByIdAndDelete(id).exec()];
+                return [2 /*return*/, this.saleInvoiceService.deleteById(id)];
             });
         });
     };
-    PurchaseOrderService.prototype.findAll = function () {
+    SaleInvoiceController.prototype.filterSaleInvoice = function (query) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.purchaseOrderModel.find().exec()];
+                return [2 /*return*/, this.saleInvoiceService.filterSaleInvoice(query)];
             });
         });
     };
-    PurchaseOrderService = __decorate([
-        common_1.Injectable(),
-        __param(0, mongoose_1.InjectModel(purchase_order_schema_1.PurchaseOrder.name))
-    ], PurchaseOrderService);
-    return PurchaseOrderService;
+    SaleInvoiceController.prototype.searchSaleInvoice = function (keyword) {
+        return __awaiter(this, void 0, Promise, function () {
+            return __generator(this, function (_a) {
+                if (!keyword) {
+                    throw new common_1.BadRequestException('Keyword is required');
+                }
+                return [2 /*return*/, this.saleInvoiceService.searchSaleInvoice(keyword)];
+            });
+        });
+    };
+    __decorate([
+        common_1.Post(),
+        __param(0, common_1.Body())
+    ], SaleInvoiceController.prototype, "create");
+    __decorate([
+        common_1.Get()
+    ], SaleInvoiceController.prototype, "findAll");
+    __decorate([
+        common_1.Put(':id'),
+        __param(0, common_1.Param('id')), __param(1, common_1.Body())
+    ], SaleInvoiceController.prototype, "update");
+    __decorate([
+        common_1.Delete(':id'),
+        __param(0, common_1.Param('id'))
+    ], SaleInvoiceController.prototype, "remove");
+    __decorate([
+        common_1.Get('filter'),
+        __param(0, common_1.Query())
+    ], SaleInvoiceController.prototype, "filterSaleInvoice");
+    __decorate([
+        common_1.Get('search'),
+        __param(0, common_1.Query('keyword'))
+    ], SaleInvoiceController.prototype, "searchSaleInvoice");
+    SaleInvoiceController = __decorate([
+        common_1.Controller('sale-invoice')
+    ], SaleInvoiceController);
+    return SaleInvoiceController;
 }());
-exports.PurchaseOrderService = PurchaseOrderService;
+exports.SaleInvoiceController = SaleInvoiceController;

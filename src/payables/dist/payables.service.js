@@ -84,18 +84,10 @@ var PayablesService = /** @class */ (function () {
             });
         });
     };
-    PayablesService.prototype.findAll = function (query) {
+    PayablesService.prototype.findAll = function () {
         return __awaiter(this, void 0, Promise, function () {
-            var keyword, payablesQuery;
             return __generator(this, function (_a) {
-                keyword = query.keyword ? {
-                    status: {
-                        $regex: query.keyword,
-                        $options: 'i'
-                    }
-                } : {};
-                payablesQuery = this.payableModel.find(__assign({}, keyword));
-                return [2 /*return*/, payablesQuery.exec()];
+                return [2 /*return*/, this.payableModel.find().exec()];
             });
         });
     };

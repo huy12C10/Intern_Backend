@@ -45,92 +45,65 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.DebtController = void 0;
+exports.PurchaseService = void 0;
 var common_1 = require("@nestjs/common");
-var DebtController = /** @class */ (function () {
-    function DebtController(debtService) {
-        this.debtService = debtService;
+var mongoose_1 = require("@nestjs/mongoose");
+var mongoose_2 = require("mongoose");
+var purchase_invoice_schema_1 = require("./schemas/purchase-invoice.schema");
+var PurchaseService = /** @class */ (function () {
+    function PurchaseService(purchaseModel) {
+        this.purchaseModel = purchaseModel;
     }
-    DebtController.prototype.filterDebts = function (query) {
+    PurchaseService.prototype.findAll = function () {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.filterDebts(query)];
+                return [2 /*return*/, this.purchaseModel.find().exec()];
             });
         });
     };
-    DebtController.prototype.searchDebts = function (keyword) {
+    PurchaseService.prototype.create = function (createPurchaseDto) {
         return __awaiter(this, void 0, Promise, function () {
+            var newPurchase;
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.searchDebts(keyword)];
+                newPurchase = new this.purchaseModel(createPurchaseDto);
+                return [2 /*return*/, newPurchase.save()];
             });
         });
     };
-    DebtController.prototype.createDebt = function (createDebtDto) {
+    PurchaseService.prototype.findOne = function (id) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.create(createDebtDto)];
+                if (!mongoose_2.isValidObjectId(id)) {
+                    throw new common_1.BadRequestException('Invalid ID format');
+                }
+                return [2 /*return*/, this.purchaseModel.findById(id).exec()];
             });
         });
     };
-    DebtController.prototype.getDebt = function (id) {
+    PurchaseService.prototype.updateById = function (id, updatePurchaseDto) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.findOne(id)];
+                if (!mongoose_2.isValidObjectId(id)) {
+                    throw new common_1.BadRequestException('Invalid ID format');
+                }
+                return [2 /*return*/, this.purchaseModel.findByIdAndUpdate(id, updatePurchaseDto, { "new": true }).exec()];
             });
         });
     };
-    DebtController.prototype.updateDebt = function (id, updateDebtDto) {
+    PurchaseService.prototype.deleteById = function (id) {
         return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.updateById(id, updateDebtDto)];
+                if (!mongoose_2.isValidObjectId(id)) {
+                    throw new common_1.BadRequestException('Invalid ID format');
+                }
+                return [2 /*return*/, this.purchaseModel.findByIdAndDelete(id).exec()];
             });
         });
     };
-    DebtController.prototype.deleteDebt = function (id) {
-        return __awaiter(this, void 0, Promise, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.deleteById(id)];
-            });
-        });
-    };
-    DebtController.prototype.getAllDebts = function () {
-        return __awaiter(this, void 0, Promise, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.debtService.findAll()];
-            });
-        });
-    };
-    __decorate([
-        common_1.Get('filter'),
-        __param(0, common_1.Query())
-    ], DebtController.prototype, "filterDebts");
-    __decorate([
-        common_1.Get('search'),
-        __param(0, common_1.Query('keyword'))
-    ], DebtController.prototype, "searchDebts");
-    __decorate([
-        common_1.Post(),
-        __param(0, common_1.Body())
-    ], DebtController.prototype, "createDebt");
-    __decorate([
-        common_1.Get(':id'),
-        __param(0, common_1.Param('id'))
-    ], DebtController.prototype, "getDebt");
-    __decorate([
-        common_1.Put(':id'),
-        __param(0, common_1.Param('id')),
-        __param(1, common_1.Body())
-    ], DebtController.prototype, "updateDebt");
-    __decorate([
-        common_1.Delete(':id'),
-        __param(0, common_1.Param('id'))
-    ], DebtController.prototype, "deleteDebt");
-    __decorate([
-        common_1.Get()
-    ], DebtController.prototype, "getAllDebts");
-    DebtController = __decorate([
-        common_1.Controller('debts')
-    ], DebtController);
-    return DebtController;
+    PurchaseService = __decorate([
+        common_1.Injectable(),
+        __param(0, mongoose_1.InjectModel(purchase_invoice_schema_1.PurchaseInvoice.name))
+    ], PurchaseService);
+    return PurchaseService;
 }());
-exports.DebtController = DebtController;
+exports.PurchaseService = PurchaseService;

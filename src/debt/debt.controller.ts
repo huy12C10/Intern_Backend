@@ -8,9 +8,14 @@ import { Debt } from './schemas/debt.schema';
 export class DebtController {
   constructor(private readonly debtService: DebtService) {}
 
+  @Get('filter')
+  async filterDebts(@Query() query: any): Promise<Debt[]> {
+    return this.debtService.filterDebts(query);
+  }
+
   @Get('search')
-  async getAllDebts(@Query() query: any): Promise<Debt[]> {
-    return this.debtService.findAll(query);
+  async searchDebts(@Query('keyword') keyword: string): Promise<Debt[]> {
+    return this.debtService.searchDebts(keyword);
   }
 
   @Post()
@@ -36,4 +41,8 @@ export class DebtController {
     return this.debtService.deleteById(id);
   }
 
+  @Get()
+  async getAllDebts(): Promise<Debt[]> {
+    return this.debtService.findAll();
+  }
 }

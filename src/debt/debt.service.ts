@@ -58,10 +58,7 @@ export class DebtService {
     return deletedDebt;
   }
 
-    async findAll(query: any): Promise<Debt[]> {
-  
-
-    // Tạo các bộ lọc cho tìm kiếm
+     async filterDebts(query: any): Promise<Debt[]> {
     const filters: any = {};
 
     if (query.amount) {
@@ -80,16 +77,30 @@ export class DebtService {
         filters.userId = query.userId;  
     }
     
-     const searchKeyword = query.keyword ? {
-    description: {
-      $regex: query.keyword,
-      $options: 'i'
+    if (query.id){
+      filters._id = query.id;
     }
-  } : {};
-    // Tạo truy vấn tìm kiếm và phân trang
-    const debtsQuery = this.debtModel.find({...filters,...searchKeyword })
 
-
+    if (query.description) {
+      filters.description = query.description; 
+    }
+    const debtsQuery = this.debtModel.find(filters);
     return debtsQuery.exec();
+  }
+
+  async searchDebts(keyword: string): Promise<Debt[]> {
+    const searchKeyword = keyword ? {
+      description: {
+        $regex: keyword,
+        $options: 'i'
+      }
+    } : {};
+
+    const debtsQuery = this.debtModel.find(searchKeyword);
+    return debtsQuery.exec();
+  }
+
+   async findAll(): Promise<Debt[]> {
+    return this.debtModel.find().exec();
   }
 }
